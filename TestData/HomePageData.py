@@ -3,6 +3,7 @@ import openpyxl
 
 class HomePageData:
 
+    # If we declare any method as static we can call this directly with class reference, no need to create a object of the class
     @staticmethod
     def getTestData(testcase_name):
         Dict = {}
