@@ -42,4 +42,6 @@ class TestE2E(BaseClass):
         successMsg = confirmPage.getSuccessMsgLocator().text
         assert confirmPage.expectedSuccessMsg in successMsg
         log.info("Code executed successfully and order is placed")
+        log.info("Code executed successfully and order is placed 1234")
+        log.info("Code executed successfully and order is placed 5678")
 
