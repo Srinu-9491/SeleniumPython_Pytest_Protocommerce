@@ -17,11 +17,11 @@ class TestE2E(BaseClass):
             productNamefromPage = product.find_element(By.XPATH, "div/h4/a").text
             if productNamefromPage == checkOutPage.product_name:
                 log.info("Itentified the particular product")
+                log.info("Add product to cart")
                 product.find_element(By.TAG_NAME, "button").click()
-                log.info("Product is added to cart")
 
+        log.info("Click on Checkout button")
         checkOutPage.getCheckOutButton().click()
-        log.info("Clicked on Checkout button")
         productInCart = checkOutPage.getProductAddedInCart().text
         assert productInCart == checkOutPage.product_name
         log.info("Selected product is added to cart")
