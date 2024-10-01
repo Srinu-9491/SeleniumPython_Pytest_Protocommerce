@@ -14,7 +14,7 @@ class BaseClass():
         loggerName = inspect.stack()[1][3]
         logger = logging.getLogger(loggerName)
 
-        fileHandler = logging.FileHandler('reports/logfile.log')
+        fileHandler = logging.FileHandler('C:\\Users\\kondsrin\\git\\PersonFromUS\\SeleniumPython_Pytest_Protocommerce\\reports\\logfile.log')
         formatter = logging.Formatter("%(asctime)s :%(levelname)s : %(name)s :%(message)s")
         fileHandler.setFormatter(formatter)
 
