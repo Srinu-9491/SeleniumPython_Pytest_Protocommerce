@@ -1,0 +1,44 @@
+from selenium.webdriver.common.by import By
+
+from pageObjects.HomePage import HomePage
+from utilities.BaseClass import BaseClass
+
+
+class TestE2E(BaseClass):
+
+    def test_e2e(self):
+        log = self.getLogger()
+
+        homepage = HomePage(self.driver)
+        checkOutPage = homepage.shopPageUrl()
+        products = checkOutPage.getProducts()
+        log.info("All products collected")
+        for product in products:
+            productNamefromPage = product.find_element(By.XPATH, "div/h4/a").text
+            if productNamefromPage == checkOutPage.product_name:
+                log.info("Itentified the particular product")
+                product.find_element(By.TAG_NAME, "button").click()
+                log.info("Product is added to cart")
+
+        checkOutPage.getCheckOutButton().click()
+        log.info("Clicked on Checkout button")
+        productInCart = checkOutPage.getProductAddedInCart().text
+        assert productInCart == checkOutPage.product_name
+        log.info("Selected product is added to cart")
+        confirmPage = checkOutPage.getCartPageCheckoutButton()
+        log.info("Clicked on Checkout button from Cart page")
+
+        confirmPage.getCountryLocator().send_keys(confirmPage.countryText)
+        self.verifyLinkPresence(confirmPage.countryName)
+        countries = confirmPage.getCountriesList()
+        for country in countries:
+            countryText = (country.find_element(By.XPATH, 'ul/li').text).strip()
+            if countryText == confirmPage.countryName:
+                country.find_element(By.XPATH, 'ul/li').click()
+                log.info("Country is selected")
+        confirmPage.getTermsAndConditions().click()
+        confirmPage.getPurchaseButton().click()
+        successMsg = confirmPage.getSuccessMsgLocator().text
+        assert confirmPage.expectedSuccessMsg in successMsg
+        log.info("Code executed successfully and order is placed")
+
