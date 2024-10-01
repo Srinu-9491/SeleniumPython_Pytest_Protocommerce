@@ -34,9 +34,10 @@ class TestE2E(BaseClass):
         for country in countries:
             countryText = (country.find_element(By.XPATH, 'ul/li').text).strip()
             if countryText == confirmPage.countryName:
+                log.info("Select Country")
                 country.find_element(By.XPATH, 'ul/li').click()
-                log.info("Country is selected")
         confirmPage.getTermsAndConditions().click()
+        log.info("Click on the purchase button")
         confirmPage.getPurchaseButton().click()
         successMsg = confirmPage.getSuccessMsgLocator().text
         assert confirmPage.expectedSuccessMsg in successMsg
